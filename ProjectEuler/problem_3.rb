@@ -1,23 +1,27 @@
 def largest_prime_factor(num)
-  prime_factors(num).last
-end
-
-def prime_factors(num)
-  factors = []
+  current_largest = 2
 
   while num > 1
-    lowest_prime = factors.last || 2
+    sqrt = Math.sqrt(num).floor
 
-    (lowest_prime..num).each do |f|
+    f = current_largest
+    while f <= sqrt
       if (num % f == 0)
-        factors << f
+        current_largest = f
         num /= f
         break
       end
+
+      f += 1
+    end
+
+    if f > sqrt 
+      current_largest = num
+      num = 1
     end
   end
 
-  factors
+  current_largest
 end
 
 def run
