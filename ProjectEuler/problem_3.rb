@@ -1,28 +1,23 @@
-def primes_below(num)
-  return [] if num < 2
-
-  primes = [2]
-
-  (3..num).each do |n|
-    primes << n if primes.none? { |p| n % p == 0 }
-  end
-  
-  primes
+def largest_prime_factor(num)
+  prime_factors(num).last
 end
 
-def largest_prime_factor(num)
-  primes = primes_below(num)
+def prime_factors(num)
+  factors = []
 
-  return num if primes.last == num
+  while num > 1
+    lowest_prime = factors.last || 2
 
-  largest = nil
-  
-  primes.each do |p|
-    break if p > num / 2
-    largest = p
+    (lowest_prime..num).each do |f|
+      if (num % f == 0)
+        factors << f
+        num /= f
+        break
+      end
+    end
   end
 
-  return largest
+  factors
 end
 
 def run
