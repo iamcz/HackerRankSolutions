@@ -1,13 +1,17 @@
 def largest_prime_factor(num)
-  current_largest = 2
+  prime_factors(num).last
+end
+
+def prime_factors(num)
+  factors = [2]
 
   while num > 1
     sqrt = Math.sqrt(num).floor
 
-    f = current_largest
+    f = factors.last
     while f <= sqrt
       if (num % f == 0)
-        current_largest = f
+        factors << f
         num /= f
         break
       end
@@ -16,12 +20,12 @@ def largest_prime_factor(num)
     end
 
     if f > sqrt 
-      current_largest = num
+      factors << num
       num = 1
     end
   end
 
-  current_largest
+  factors
 end
 
 def run
